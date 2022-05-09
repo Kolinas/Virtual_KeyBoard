@@ -1,0 +1,70 @@
+// переменные
+
+$colorBackgroundDocument: #fff;
+$colorBackgroundKeys: #929292;
+$colorBackgroundKey: #424242;
+$colorBackgroundKeyHover: blue;
+$colorBorderKeyActive: green;
+$colorFontKey: #fff;
+$colorFontTitle: red;
+$colorFontDescription: grey;
+$colorBorderKeys: #000;
+
+*, *:before , *:after {
+    box-sizing: border-box;
+  }
+body {
+    background-color: $colorBackgroundDocument;
+    color: $colorFontDescription;
+}
+h1 {
+    color: $colorFontTitle;
+}
+.textarea {
+    color: $colorFontDescription;
+    width: 100%;
+}
+.wrapper {
+    width: 768px;
+    margin: 0 auto;
+    text-align: center;
+}
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 3px solid $colorBorderKeys;
+    border-radius: 3px;
+}
+.key {
+    min-width: 45px;
+    padding: 12px 8px;
+    margin: 2px;
+    border-radius: 3px;
+    font-weight: 500;
+    text-align: center;
+    color: $colorFontKey;
+    background-color: $colorBackgroundKey;
+    &:hover {        
+        background: $colorBackgroundKeyHover;
+        cursor: pointer;        
+    }
+    &:active {
+        background: $colorBorderKeyActive;
+    }
+}
+.key-large {    
+    flex-grow: 2;
+    min-width: 72px;
+}
+.key-large-2 {    
+    flex-grow: 3;
+    min-width: 72px;
+  }
+.key-space {
+   flex-grow: 10;
+}
+.description {
+    line-height: 1.5;
+    margin: 20px;
+}

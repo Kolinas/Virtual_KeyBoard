@@ -1,0 +1,87 @@
+*, *:before, *:after {
+
+          box-sizing: border-box;
+}
+
+body {
+  background-color: #fff;
+  color: grey;
+}
+
+h1 {
+  color: red;
+}
+
+.textarea {
+  color: grey;
+  width: 100%;
+}
+
+.wrapper {
+  width: 768px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.keyboard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border: 3px solid #000;
+  border-radius: 3px;
+}
+
+.key {
+  min-width: 45px;
+  padding: 12px 8px;
+  margin: 2.5px;
+  border-radius: 3px;
+  font-weight: 500;
+  text-align: center;
+  color: #fff;
+  background-color: #424242;
+}
+
+.key:hover {
+  background: blue;
+  cursor: pointer;
+}
+
+.key-large {
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+  min-width: 72px;
+}
+
+.key-large-2 {
+  -webkit-box-flex: 3;
+      -ms-flex-positive: 3;
+          flex-grow: 3;
+  min-width: 72px;
+}
+
+.key-space {
+  -webkit-box-flex: 10;
+      -ms-flex-positive: 10;
+          flex-grow: 10;
+}
+
+.description {
+  line-height: 1.5;
+  margin: 20px;
+}
+
+.CapsLock {
+  background: red;
+}
+.key.active {
+  background: orange;
+  border-radius: 15px;
+}
+/*# sourceMappingURL=key.css.map */
