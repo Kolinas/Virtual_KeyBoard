@@ -202,6 +202,7 @@ window.addEventListener('DOMContentLoaded',() => {
                     // console.log(textarea.selectionStart);
                     // console.log(textarea.selectionEnd);
 
+                    textarea.focus()
                 }
 
                 if (target == 'Del'){
@@ -209,7 +210,7 @@ window.addEventListener('DOMContentLoaded',() => {
                     target = ''
 
                     const start = textarea.value.slice(0, textarea.selectionStart)
-                    const end = textarea.value.slice(textarea.selectionStart+1)
+                    const end = textarea.value.slice(textarea.selectionStart + 1)
                     const newSrt = start + end
                     textarea.value = ''
                     textarea.setRangeText(newSrt, textarea.selectionStart, textarea.selectionEnd, 'end')
@@ -227,7 +228,10 @@ window.addEventListener('DOMContentLoaded',() => {
                 }
 
                 if (target == 'Enter'){
-                    target = '     '
+                    target = "\n"
+                    // textarea.setRangeText(target, 0, 300, 'end')
+                    textarea.focus()
+                    console.log(textarea.selectionStart);
                 }
     
                 if (target == 'CapsLock'){
@@ -304,7 +308,12 @@ window.addEventListener('DOMContentLoaded',() => {
 
             if (codes === e.code) {
                 keys.classList.add('active')
+                textarea.innerHTML += e.key.length === 1 ? e.key : '' 
+
+                console.log(e.key.textContent);
             }
+
+            
         })
     })
 
@@ -345,6 +354,8 @@ window.addEventListener('DOMContentLoaded',() => {
             createKeyBoard()
         }
     }
+
+  
 
     document.addEventListener('keydown', changeLang)
 })
