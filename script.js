@@ -162,26 +162,19 @@ window.addEventListener('DOMContentLoaded',() => {
 
             btn.addEventListener('click', (e) => {
 
-                // e.preventDefault()
-
                 let target = e.target.textContent
-    
-                result = target
     
                 if (target == 'Backspace'){
 
                     target = ''
 
-                    
                     if (textarea.value.length === textarea.selectionEnd) {
-                        console.log('1');
                         const delElBefore = textarea.value.slice(0, -1)
                         textarea.value = ''
                         textarea.setRangeText(delElBefore, textarea.selectionStart, textarea.selectionEnd, 'end')
                     }
 
                     if (textarea.value.length !== textarea.selectionEnd) {
-                        console.log('2');
                         const start = textarea.value.slice(0, textarea.selectionStart-1)
                         const end = textarea.value.slice(textarea.selectionStart)
                         const newSrt = start + end
@@ -192,15 +185,8 @@ window.addEventListener('DOMContentLoaded',() => {
                     }
 
                     if (textarea.selectionStart === 0 && textarea.selectionEnd === 0) {
-                        // const nothing = ' '
-                        // console.log('3');
                         textarea.setRangeText(" ", textarea.selectionStart, textarea.selectionEnd, 'end')
-                        // textarea.setSelectionRange(textarea.value.length, textarea.value.length)
                     }
-
-                    // console.log(textarea.value.length);
-                    // console.log(textarea.selectionStart);
-                    // console.log(textarea.selectionEnd);
 
                     textarea.focus()
                 }
@@ -224,14 +210,12 @@ window.addEventListener('DOMContentLoaded',() => {
                 }
 
                 if (target == 'Tab'){
-                    target = '     '
+                    target = '\t'
                 }
 
                 if (target == 'Enter'){
                     target = "\n"
-                    // textarea.setRangeText(target, 0, 300, 'end')
                     textarea.focus()
-                    console.log(textarea.selectionStart);
                 }
     
                 if (target == 'CapsLock'){
@@ -249,43 +233,11 @@ window.addEventListener('DOMContentLoaded',() => {
                 }
                 
                 textarea.setRangeText(target, textarea.selectionStart, textarea.selectionEnd, 'end')
-                // textarea.focus()
-                // textarea.innerHTML += result
+                textarea.focus()
             })           
         })
 
     }
-
-    function delText(e) {
-
-        const before = e.target.selectionStart
-        const after = e.target.selectionEnd
-
-        const textArea = e.target.value
-
-        const start = textArea.slice(0, before-1)
-        const end = textArea.slice(before)
-
-        const newValue = start + end
-
-        // console.log(before);
-        // console.log(after);
-
-        cursorPos = newValue
-
-        // console.log(cursorPos);
-
-    //     console.log(e.target.selectionStart);
-    //     console.log(e.target.selectionEnd);
-    //    console.log(e.target.value);
-    } 
-
-
-    textarea.addEventListener('click', delText)
-
-    // keyboard.addEventListener('click', (e) => {
-    //     console.log(e.target.innerText);
-    // })
 
     document.addEventListener('mousedown', (e) => {
         e.target.classList.add('active')
@@ -302,15 +254,81 @@ window.addEventListener('DOMContentLoaded',() => {
 
         const keyCodes = document.querySelectorAll('[data-keyCode]')
 
+
         keyCodes.forEach(keys => {
             
             const codes = keys.getAttribute('data-keyCode')
 
             if (codes === e.code) {
                 keys.classList.add('active')
-                textarea.innerHTML += e.key.length === 1 ? e.key : '' 
 
-                console.log(e.key.textContent);
+                let currentKey = keys.textContent.length === 1 ? keys.textContent : ''  //Вынести за условия
+
+                if (e.code == 'CapsLock'){
+                    
+                    keys.classList.toggle('CapsLock')
+                    
+                    if (keys.classList.contains('CapsLock')){
+                        keyBordWraper.setAttribute('caps', true)
+                        styleSomeKeyButtons(keyCodes)
+                        currentKey = currentKey.toUpperCase()
+                    }else {
+                        keyBordWraper.removeAttribute('caps')
+                        styleSomeKeyButtons(keyCodes)
+                    }
+                }
+
+                if (e.code == 'Enter'){
+                    currentKey = "\n"
+                    textarea.focus()
+                }
+
+                if (e.code  == 'Tab'){
+                    currentKey = '\t'
+                    textarea.focus()
+                }
+
+                if (e.key == 'Delete'){
+
+                    const start = textarea.value.slice(0, textarea.selectionStart)
+                    const end = textarea.value.slice(textarea.selectionStart + 1)
+                    const newSrt = start + end
+                    textarea.value = ''
+                    textarea.setRangeText(newSrt, textarea.selectionStart, textarea.selectionEnd, 'end')
+                    textarea.focus()
+                    textarea.setSelectionRange(start.length, start.length)
+
+                }
+
+                if (e.code == 'Backspace'){
+
+
+                    if (textarea.value.length === textarea.selectionEnd) {
+                        console.log('1');
+                        const delElBefore = textarea.value.slice(0, -1)
+                        textarea.value = ''
+                        textarea.setRangeText(delElBefore, textarea.selectionStart, textarea.selectionEnd, 'end')
+                    }
+
+                    if (textarea.value.length !== textarea.selectionEnd) {
+                        console.log('2');
+                        const start = textarea.value.slice(0, textarea.selectionStart-1)
+                        const end = textarea.value.slice(textarea.selectionStart)
+                        const newSrt = start + end
+                        textarea.value = ''
+                        textarea.setRangeText(newSrt, textarea.selectionStart, textarea.selectionEnd, 'end')
+                        textarea.focus()
+                        textarea.setSelectionRange(start.length, start.length)
+                    }
+
+                    if (textarea.selectionStart === 0 && textarea.selectionEnd === 0) {
+                        textarea.setRangeText(" ", textarea.selectionStart, textarea.selectionEnd, 'end')
+                    }
+                }
+
+                textarea.setRangeText(currentKey, textarea.selectionStart, textarea.selectionEnd, 'end')
+                textarea.focus()
+
             }
 
             
@@ -318,6 +336,7 @@ window.addEventListener('DOMContentLoaded',() => {
     })
 
     document.addEventListener('keyup', (e) => {
+
 
         const keyCodes = document.querySelectorAll('[data-keyCode]')
 
@@ -335,6 +354,7 @@ window.addEventListener('DOMContentLoaded',() => {
     
     function changeLang(e) {
 
+
         let checkLang = localStorage.getItem('lang')
 
         if (!checkLang) {
@@ -342,6 +362,7 @@ window.addEventListener('DOMContentLoaded',() => {
         }
 
         if (e.code == 'AltLeft' && e.ctrlKey) {
+
 
             if (checkLang === 'en') {
                 localStorage.setItem('lang', 'ru')
@@ -359,3 +380,4 @@ window.addEventListener('DOMContentLoaded',() => {
 
     document.addEventListener('keydown', changeLang)
 })
+
